@@ -34,7 +34,7 @@ export function isValidUserAuthActive(userAuth: { token: any; name: any; email: 
 
 export function getTokenFromLocalStorage(): string | null {
     try {
-        const storedAuth = localStorage.getItem('userAuth');
+        const storedAuth = localStorage.getItem('UserAuthActive');
         if (storedAuth) {
             const parsedAuth = JSON.parse(storedAuth);
             if (parsedAuth && typeof parsedAuth.token === 'string' && parsedAuth.token.trim() !== '') {

@@ -10,7 +10,7 @@ interface AuthContextProps {
     error: boolean;
     errorMessage: string;
     contextLogin: (email: string, password: string) => Promise<void>;
-    // logout: () => Promise<void>; // Add logout to context
+    contextLogout: () => Promise<void>; // Add logout to context
     setError: (value: boolean) => void;
     setErrorMessage: (message: string) => void;
 }
@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const userAuth = state.userAuth;
 
     const contextLogin = async (email: string, password: string) => {
         setError(false);
@@ -55,20 +56,38 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     const contextGetUserAuthActive = async () => {
+        setIsAuthenticated(true);
         if (!isValidUserAuthActive(state.userAuth)) {
             setIsAuthenticated(false);
+            return;
         }
         setError(false);
         setErrorMessage('');
     }
 
+    const contextLogout = async () => {
+        setError(false);
+        setErrorMessage('');
+        await logout();
+        dispatch({
+            type: 'set-auth-user',
+            payload: {
+                data: initialState.userAuth
+            }
+        })
+        localStorage.removeItem("UserAuthActive")
+        localStorage.removeItem("isAuthenticated")
+        setIsAuthenticated(false);
+    }
     useEffect(() => {
         contextGetUserAuthActive();
     }, [])
 
     const obj = useMemo(() => ({
         isAuthenticated,
+        userAuth,
         contextLogin,
+        contextLogout,
         error,
         setError,
         errorMessage,

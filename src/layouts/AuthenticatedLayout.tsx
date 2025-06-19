@@ -1,7 +1,12 @@
-import { Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
 import Sidebar from "../components/Layout/Sidebar";
+import { useAuth } from "../hooks/useAuth";
 
 export default function AuthenticatedLayout() {
+    const { isAuthenticated } = useAuth();
+    if (!isAuthenticated) {
+        return <Navigate to="/" />;
+    }
     return (
         <div className="flex min-h-screen">
             <Sidebar />

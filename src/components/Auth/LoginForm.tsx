@@ -2,8 +2,10 @@ import { useState, type FormEvent } from 'react';
 // Asumiendo que AuthContext y su hook useAuth existen
 import { useAuth } from '../../hooks/useAuth';
 import type { UserLogin } from '../../types';
+import { useNavigate } from 'react-router';
 
 const LoginForm = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const {
@@ -16,6 +18,7 @@ const LoginForm = () => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         contextLogin(email, password);
+        navigate("/");
     };
 
     return (

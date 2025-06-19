@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
+import { useAuth } from '../../hooks/useAuth';
 
 
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(true);
+    const { contextLogout } = useAuth();
     const toggleSidebar = () => {
         setIsOpen(prev => !prev);
     }
@@ -51,10 +53,10 @@ const Sidebar = () => {
             </nav>
             {/* Logout al final */}
             <div className="mt-auto p-4 border-t border-gray-700">
-                <Link to="/logout" className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md mx-2 transition duration-150 ease-in-out">
+                <button onClick={contextLogout} className="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md mx-2 transition duration-150 ease-in-out">
                     <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     {isOpen && <span className="whitespace-nowrap">Cerrar Sesión</span>}
-                </Link>
+                </button>
             </div>
             {/* Footer para la versión compacta si se desea, o para el "Tailwind CSS" */}
             <div className="text-center text-gray-500 text-xs p-4">

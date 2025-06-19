@@ -8,7 +8,7 @@ export type AuthState = {
 }
 const getInitialUserAuthState = (): UserAuthActive => {
     try {
-        const storedAuth = localStorage.getItem('userAuth');
+        const storedAuth = localStorage.getItem('UserAuthActive');
         if (storedAuth) {
             const parsedAuth: UserAuthActive = JSON.parse(storedAuth);
             return parsedAuth;

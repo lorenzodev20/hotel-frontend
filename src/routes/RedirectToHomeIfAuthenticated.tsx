@@ -12,7 +12,6 @@ const RedirectToHomeIfAuthenticated = () => {
             navigate('/dashboard');
         }
     }, [isAuthenticated, navigate]);
-
     return isAuthenticated ? null : <LoginPage />;
 };
 

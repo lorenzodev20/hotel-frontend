@@ -1,3 +1,6 @@
+import { useAuth } from "../hooks/useAuth"
+
 export default function DashboardPage() {
-    return (<h2 className="text-4xl">Dashboard</h2>)
+    const { userAuth } = useAuth();
+    return (<h2 className="text-4xl">{`Bienvenido ${userAuth.name}`}</h2>)
 }

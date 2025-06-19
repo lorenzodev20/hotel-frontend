@@ -12,6 +12,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<RedirectToHomeIfAuthenticated />} />
+          <Route path="/login" element={<LoginPage />} />
           
           <Route element={<AuthenticatedLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
