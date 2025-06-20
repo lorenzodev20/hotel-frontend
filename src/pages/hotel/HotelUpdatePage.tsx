@@ -40,6 +40,7 @@ export default function HotelUpdatePage() {
     if ('error' in result) {
       console.error(result?.error)
     } else {
+      // @ts-ignore
       setHotelAvailability(result.data);
     }
   }

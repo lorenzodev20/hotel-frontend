@@ -1,7 +1,7 @@
 import { createContext, useEffect, useMemo, useReducer, useState, type ReactNode } from "react";
 import { login, logout } from "../api/auth";
 import { authReducer, initialState } from "../reducers/auth-reducer";
-import type { UserAuthActive, UserLogin } from "../types";
+import type { UserAuthActive } from "../types";
 import { isValidUserAuthActive } from "../utils/auth";
 
 interface AuthContextProps {

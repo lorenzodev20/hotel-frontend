@@ -58,7 +58,7 @@ const Table = <T extends TableRowData>({
                 <tbody className="bg-white divide-y divide-gray-200">
                     {data.map((row, rowIndex) => (
                         <tr key={rowKey ? rowKey(row) : `row-${rowIndex}`}>
-                            {columns.map((column, colIndex) => (
+                            {columns.map((column) => (
                                 <td
                                     key={typeof column.key === 'string' ? column.key : column.key.toString()} // Fallback key for cell
                                     className={`px-6 py-4 whitespace-nowrap text-sm text-gray-900 ${column.className || ''}`}

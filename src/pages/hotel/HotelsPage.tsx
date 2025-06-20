@@ -20,6 +20,7 @@ export default function HotelsPage() {
         if ('error' in result) {
           console.error(result?.error)
         } else {
+          // @ts-ignore
           setHotels(result.data);
         }
       } catch (error) {
