@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         const response = await login({ email, password });
 
         if ('error' in response) {
-            console.error("Error");
+            console.error("Error in AuthContext", response.error);
             setError(true);
             setErrorMessage(response.error);
         } else {

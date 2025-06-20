@@ -86,7 +86,7 @@ export default function HotelUpdatePage() {
             Volver al listado
           </Link>
           <Link
-            to="/hotels"
+            to={`/hotels/${hotelId}/edit`}
             className={`bg-blue-500 cursor-pointer w-2xs p-2 text-white uppercase font-bold rounded-lg text-center mx-3`}
           >
             Editar Información

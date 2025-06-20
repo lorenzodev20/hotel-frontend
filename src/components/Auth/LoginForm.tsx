@@ -52,7 +52,7 @@ const LoginForm = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    {error && <p className="text-red-500 text-xs italic">{errorMessage}</p>}
+                    {error || errorMessage && <p className="text-red-500 text-xs italic">{errorMessage}</p>}
                 </div>
                 <div className="flex items-center justify-between">
                     <button
