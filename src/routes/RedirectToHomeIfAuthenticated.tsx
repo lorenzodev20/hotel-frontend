@@ -9,7 +9,7 @@ const RedirectToHomeIfAuthenticated = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            navigate('/dashboard');
+            navigate('/hotels');
         }
     }, [isAuthenticated, navigate]);
     return isAuthenticated ? null : <LoginPage />;

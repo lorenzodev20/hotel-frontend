@@ -1,7 +1,5 @@
 import { useState, type FormEvent } from 'react';
-// Asumiendo que AuthContext y su hook useAuth existen
 import { useAuth } from '../../hooks/useAuth';
-import type { UserLogin } from '../../types';
 import { useNavigate } from 'react-router';
 
 const LoginForm = () => {

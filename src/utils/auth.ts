@@ -46,3 +46,16 @@ export function getTokenFromLocalStorage(): string | null {
     }
     return null;
 }
+
+export function getInitials(texto: string): string {
+    const palabras = texto.trim().split(' ');
+    let iniciales = '';
+
+    for (const palabra of palabras) {
+        if (palabra.length > 0) {
+            iniciales += palabra[0].toUpperCase();
+        }
+    }
+
+    return iniciales;
+}
