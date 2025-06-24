@@ -1,24 +1,31 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router';
+import { useSpinner } from '../../hooks/useSpinner';
+import { ArrowPathIcon} from '@heroicons/react/24/solid';
 
 const LoginForm = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const {
-        error,
         errorMessage,
-        contextLogin
+        contextLogin,
     } = useAuth();
+    const { loading, setLoading } = useSpinner();
 
-
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        contextLogin(email, password);
+        setLoading(true);
+        await contextLogin(email, password);
+        setLoading(false);
         navigate("/");
     };
 
+    useEffect(() => {
+        setLoading(false)
+    },[])
+    
     return (
         <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-sm">
             <form onSubmit={handleSubmit}>
@@ -37,6 +44,7 @@ const LoginForm = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
+                        disabled={loading}
                     />
                 </div>
                 <div className="mb-6">
@@ -51,16 +59,21 @@ const LoginForm = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        disabled={loading}
                     />
-                    {error || errorMessage && <p className="text-red-500 text-xs italic">{errorMessage}</p>}
+                    { errorMessage && <p className="text-red-500 text-xs italic">{errorMessage}</p>}
                 </div>
                 <div className="flex items-center justify-between">
                     <button
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200 ease-in-out w-full"
+                        className=" bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200 ease-in-out w-full flex justify-center items-center"
                         type="submit"
-                    // disabled={isLoading}
+                        disabled={loading}
                     >
-                        Login {/* {isLoading ? 'Cargando...' : 'Login'} */}
+                        {loading ? (
+                            <ArrowPathIcon className="w-5 h-5 text-white animate-spin" />
+                        ) : (
+                            'Login'
+                        )}
                     </button>
                 </div>
             </form>

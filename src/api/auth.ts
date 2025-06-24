@@ -37,7 +37,7 @@ export const logout = async (): Promise<void | ErrorApi> => {
 
 export const me = async (): Promise<void | ErrorApi> => {
     try {
-        const response = await hotelBackend.post('/auth/logout');
+        const response = await hotelBackend.post('/auth/me');
         console.info(response);
     } catch (error: any) {
         if (error.response) {

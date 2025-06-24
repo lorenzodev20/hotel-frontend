@@ -36,7 +36,7 @@ export default function FormCreateHotel() {
         }
     }
 
-    const callCity = async (stateId: number = 13) => {
+    const callCity = async (stateId: number = 15) => {
         const result = await cities(stateId);
         if ('error' in result) {
             console.error(result?.error)
@@ -46,8 +46,11 @@ export default function FormCreateHotel() {
     }
 
     useEffect(() => {
-        callState();
-        callCity(1);
+        const startCatalogs = async () => {
+            await callState();
+            await callCity();
+        }
+        startCatalogs();
     }, []);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
@@ -67,7 +70,9 @@ export default function FormCreateHotel() {
     }
 
     useMemo(() => {
-        callCity(stateSelected)
+        if (stateSelected > 0) {
+            callCity(stateSelected)
+        }
     }, [stateSelected])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

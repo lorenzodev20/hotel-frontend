@@ -56,19 +56,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     const contextGetUserAuthActive = async () => {
-        setIsAuthenticated(true);
+
         if (!isValidUserAuthActive(state.userAuth)) {
             setIsAuthenticated(false);
             return;
         }
+        setIsAuthenticated(true);
         setError(false);
         setErrorMessage('');
     }
 
-    const contextLogout = async () => {
+    const contextLogout = async (callApi: boolean = true) => {
+
         setError(false);
         setErrorMessage('');
-        await logout();
+
+        if (callApi) {
+            await logout();
+        }
+
         dispatch({
             type: 'set-auth-user',
             payload: {
@@ -81,6 +87,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
     useEffect(() => {
         contextGetUserAuthActive();
+
+        const handleLogout = async () => {
+            await contextLogout(false);
+        };
+
+        window.addEventListener('auth-expired', handleLogout);
+
+        return () => {
+            window.removeEventListener('auth-expired', handleLogout);
+        };
     }, [])
 
     const obj = useMemo(() => ({
@@ -92,7 +108,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setError,
         errorMessage,
         setErrorMessage
-    }), [isAuthenticated]);
+    }), [isAuthenticated, error]);
 
     return (
         <AuthContext.Provider value={obj}>

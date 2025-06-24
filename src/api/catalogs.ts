@@ -47,7 +47,7 @@ export const states = async (countryId: number = 43): Promise<StateOrCity[] | Er
     }
 }
 
-export const cities = async (stateId: number = 13): Promise<StateOrCity[] | ErrorApi> => {
+export const cities = async (stateId: number = 15): Promise<StateOrCity[] | ErrorApi> => {
     try {
         const { data } = await hotelBackend.get<StateOrCity[]>(`/catalogs/cities?state_id=${stateId}`);
         return data;

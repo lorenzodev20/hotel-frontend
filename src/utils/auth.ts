@@ -59,3 +59,13 @@ export function getInitials(texto: string): string {
 
     return iniciales;
 }
+
+export function getBaseUrl(url: string) {
+    try {
+        const urlObject = new URL(url);
+        return urlObject.origin;
+    } catch (error: any) {
+        console.error("Error al parsear la URL:", error.message);
+        return '';
+    }
+}
